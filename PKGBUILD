@@ -1,25 +1,19 @@
-# Maintainer: 1jehuang <jeremyhuang55555@gmail.com>
-
+# Maintainer: Jeremy Huang <jeremyhuang55555@gmail.com>
 pkgname=jcode-bin
-pkgver=0.3.1
+pkgver=0.72.0
 pkgrel=1
-pkgdesc="AI coding agent with TUI — multi-model (Claude, OpenAI, OpenRouter), swarm coordination, 30+ tools"
+pkgdesc="AI coding agent powered by Claude and ChatGPT"
 arch=('x86_64')
 url="https://github.com/1jehuang/jcode"
 license=('MIT')
-depends=('glibc' 'gcc-libs')
 provides=('jcode')
 conflicts=('jcode')
-source=(
-  "jcode-${pkgver}-x86_64-unknown-linux-gnu.tar.gz::https://github.com/1jehuang/jcode/releases/download/v${pkgver}/jcode-linux-x86_64.tar.gz"
-  "LICENSE::https://raw.githubusercontent.com/1jehuang/jcode/v${pkgver}/LICENSE"
-)
-sha256sums=(
-  '1c60f1b99137464e5ebbf422f360ba23fec7df0a84dfb22a1dd6e2f7666d3467'
-  '720443eee2efeda8f9f93a7a6a6f62763c17171106f60df58a35b8ea638fdf60'
-)
+source=("https://github.com/1jehuang/jcode/releases/download/v0.72.0/jcode-linux-x86_64.tar.gz")
+sha256sums=('60fcbfab6c92e63e32d8a7ff757b5696479b338de455e4eb17180cfc927743ed')
 
 package() {
-  install -Dm755 jcode-linux-x86_64 "${pkgdir}/usr/bin/jcode"
-  install -Dm644 "${srcdir}/LICENSE" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+    install -Dm755 "${srcdir}/jcode-linux-x86_64" "${pkgdir}/usr/lib/jcode/jcode-linux-x86_64"
+    install -Dm755 "${srcdir}/jcode-linux-x86_64.bin" "${pkgdir}/usr/lib/jcode/jcode-linux-x86_64.bin"
+    mkdir -p "${pkgdir}/usr/bin"
+    ln -s /usr/lib/jcode/jcode-linux-x86_64 "${pkgdir}/usr/bin/jcode"
 }
